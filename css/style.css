@@ -1,0 +1,39 @@
+body{
+  background-color: #f3f3f3;
+}
+
+.title{
+  text-align: center;
+  margin-top: 70px;
+}
+
+.list-todo{
+  width: 100%;
+  position: relative;
+  float: left;
+}
+
+.list-todo li{
+  width: calc(100% - 30px);
+  background-color: #e3e3e3;
+  border-radius: 4px;
+  padding-left: 30px;
+  display: block;
+  float: left;
+}
+
+.list-todo .button{
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.list-todo .button.button-black{
+  background-color: #333333;
+  color: #ffffff;
+  border: none;
+  float: right;
+}
+
+.list-todo p{
+  margin-bottom: 0;
+}

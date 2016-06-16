@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+  <meta charset="utf-8">
+  <title>TODO List in AngularJS</title>
+  <meta name="description" content="Test to SocialBase">
+  <meta name="author" content="Douglas Gorni Mello">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+  <div class="container" ng-app="todoTest" ng-controller="todoController">
+    <div class="row">
+      <div class="u-full-width">
+        <h1 class="title">My TODO List =)</h1>
+      </div>
+      <div class="offset-by-three six columns">
+        <form ng-submit="add()">
+          <div class="row">
+            <input type="text" ng-model="dotask" class="column" placeholder="Comece a inserir suas tarefas" />
+          </div>
+          <div class="row">
+            <button type="submit" class="u-full-width button button-primary">Create Task</button>
+            <button ng-show="updateMode" ng-click="update()" type="button" class="u-full-width button button-primary">Update</button>
+          </div>
+        </form>
+        <!-- form add -->
+        <!-- list -->
+        <ul class="list-todo">
+          <li ng-repeat="t in tasks track by $index">
+            <div class="row">
+              <div class="six columns">
+                <p>{{ t }}</p>
+              </div>
+              <div class="three columns">
+                <button class="button button-primary" ng-click="update($index)">update</button>
+              </div>
+              <div class="three columns">
+                <button class="button button-black" ng-click="delete()">x</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="alert-content" ng-show="showConfirm">
+	      <div class="alert">
+	        <button ng-click="yes()">Yes</button>
+	        <button ng-click="no()">No</button>
+	      </div>
+	    </div>
+      </div>
+    </div>
+  </div>
+
+<script src="js/angular.min.js"></script>
+<script>
+angular.module('todoTest', [])
+    .controller('todoController', function($scope) {
+        $scope.tasks = [];
+        $scope.add = function() {
+          $scope.tasks.push($scope.dotask);
+          $scope.dotask = "";
+        }
+        $scope.update = function(index) {
+          if ($scope.updateMode) {
+            $scope.tasks[$scope.updateIndex] = $scope.dotask;
+            $scope.updateMode = false;
+            $scope.dotask = "";
+          } else {
+            $scope.dotask = $scope.tasks[index];
+            $scope.updateMode = true;
+            $scope.updateIndex = index;
+          }
+
+        }
+        $scope.delete = function() {
+          $scope.tasks.index = this.$index;
+          $scope.showConfirm = true;
+        }
+        $scope.yes = function(){
+          $scope.tasks.splice($scope.index, 1);
+          $scope.showConfirm = false;
+        }
+        
+        $scope.no = function(){
+          $scope.showConfirm = false;
+        }
+    })
+</script>
+</body>
+</html>
